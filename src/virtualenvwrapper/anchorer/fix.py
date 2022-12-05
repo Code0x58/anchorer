@@ -13,10 +13,9 @@ def main():
     sys.base_exec_prefix = realpath(sys.base_exec_prefix)
     sys.exec_prefix = realpath(sys.exec_prefix)
     sys.executable = realpath(sys.executable)
-    if sys._home is not None:
+    if getattr(sys, '_home', None) is not None:
         sys._home = realpath(sys._home)
     if hasattr(sys, '_base_executable'):
-        # absent in python3.6
         sys._base_executable = realpath(sys._base_executable)
 
     # resolve all the module filenames to at least help debugging
