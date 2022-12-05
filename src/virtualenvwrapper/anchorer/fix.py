@@ -15,7 +15,7 @@ def main():
     sys.executable = realpath(sys.executable)
     if sys._home is not None:
         sys._home = realpath(sys._home)
-    if hasattr('sys', '_base_executable'):
+    if hasattr(sys, '_base_executable'):
         # absent in python3.6
         sys._base_executable = realpath(sys._base_executable)
 
