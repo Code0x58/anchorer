@@ -15,15 +15,17 @@ def main():
     sys.executable = realpath(sys.executable)
     if sys._home is not None:
         sys._home = realpath(sys._home)
-    sys._base_executable = realpath(sys._base_executable)
+    if hasattr('sys', '_base_executable'):
+        # absent in python3.6
+        sys._base_executable = realpath(sys._base_executable)
 
     # resolve all the module filenames to at least help debugging
     for name, module in sys.modules.items():
         # not all modules (e.g. builtins) do not have this attribute
-        path = getattr(module, __file__, None)
+        path = getattr(module, "__file__", None)
         if path is None:
             continue
-        module.__file__ = realpath()
+        module.__file__ = realpath(path)
 
     # an example run (can ignore the pytest one)
     # [<_pytest.assertion.rewrite.AssertionRewritingHook object at 0x7fe50db08160>,
